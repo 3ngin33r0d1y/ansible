@@ -1,26 +1,25 @@
 ---
 - name: Check Disk Space
-  hosts:  all
+  hosts: all
   gather_facts: true
 
   tasks:
     - name: Get disk facts
-  ansible.builtin.setup:
-    gather_subset:
-      - "!all"
-      - "!any"
-      - "!min"
-      - "!fqdn"
-      - "!network"
-      - "!ansible_command"
-      - "!ansible_facts"
-      - "!ansible_selinux"
-      - "!ansible_ssh_host_key"
-      - "!ansible_lsb"
-    gather_timeout: 30
-  vars:
-    ansible_ssh_extra_args: " -o StrictHostKeyChecking=no"
-
+      ansible.builtin.setup:
+        gather_subset:
+          - "!all"
+          - "!any"
+          - "!min"
+          - "!fqdn"
+          - "!network"
+          - "!ansible_command"
+          - "!ansible_facts"
+          - "!ansible_selinux"
+          - "!ansible_ssh_host_key"
+          - "!ansible_lsb"
+      gather_timeout: 30
+      vars:
+        ansible_ssh_extra_args: " -o StrictHostKeyChecking=no"
 
     - name: Display disk space information
       debug:
