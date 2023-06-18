@@ -15,8 +15,6 @@
           - "!ansible_command"
           - "!ansible_facts"
           - "!ansible_selinux"
-          - "!ansible_ssh_host_key"
-          - "!ansible_lsb"
         gather_timeout: 30
 
     - name: Display disk space information
