@@ -6,7 +6,7 @@
   tasks:
     - name: Set SSH connection options
       set_fact:
-        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+        ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
     - name: Get disk facts
       ansible.builtin.setup:
