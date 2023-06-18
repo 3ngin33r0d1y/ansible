@@ -4,6 +4,10 @@
   gather_facts: true
 
   tasks:
+    - name: Set SSH connection options
+      set_fact:
+        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
     - name: Get disk facts
       ansible.builtin.setup:
         gather_subset:
@@ -17,9 +21,6 @@
           - "!ansible_selinux"
           - "!ansible_ssh_host_key"
           - "!ansible_lsb"
-      gather_timeout: 30
-      vars:
-        ansible_ssh_extra_args: " -o StrictHostKeyChecking=no"
 
     - name: Display disk space information
       debug:
