@@ -1,0 +1,33 @@
+---
+- name: Check Disk Space
+  hosts:  all
+  gather_facts: true
+
+  tasks:
+    - name: Get disk facts
+      ansible.builtin.setup:
+        gather_subset:
+          - "!all"
+          - "!any"
+          - "!min"
+          - "!fqdn"
+          - "!network"
+          - "!ansible_command"
+          - "!ansible_facts"
+          - "!ansible_selinux"
+          - "!ansible_ssh_host_key"
+          - "!ansible_lsb"
+        gather_timeout: 30
+
+    - name: Display disk space information
+      debug:
+        msg: |
+          Disk Space on {{ ansible_host }}:
+          {% for disk in ansible_facts.ansible_mounts %}
+          - Mount Point: {{ disk.mount }}
+            File System: {{ disk.filesystem }}
+            Total Space: {{ disk.size_total }}
+            Used Space: {{ disk.size_used }}
+            Available Space: {{ disk.size_available }}
+            Used Percentage: {{ disk.percent_used }}%
+          {% endfor %}
